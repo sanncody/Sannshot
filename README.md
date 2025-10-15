@@ -6,3 +6,4 @@ This is a backend project where we can save photos as a collection like a galler
 - MongoDB: Storing the data of image collection in MongoDB database.
 - EJS: Templating Engine to render static pages.
 - Passport: For passport based authentication. 
+- Multer: For image uploading.
