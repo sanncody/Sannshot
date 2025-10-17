@@ -5,8 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sannshot: A photo collection gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>  
+<body>
+    <!-- Navbar code -->
+    <% if (nav) { %>
+        <div class="w-full px-10 py-2 flex justify-between items-center bg-zinc-800 text-[#dadada]">
+            <h3
+                class="text-3xl font-bold tracking-tight bg-gradient-to-r from-yellow-500 to-orange-500 text-transparent bg-clip-text">
+                <a href="/profile">Sannshot</a>
+            </h3>
+            <div class="flex items-center gap-10">
+                <a href="/profile">Profile</a>
+                <a href="/feed">Feed</a>
+                <a class="px-3 py-2 bg-red-700 rounded-lg text-zinc-300 font-semibold tracking-tight" href="/logout">Logout</a>
+            </div>
+        </div>
+    <% } %>
