@@ -25,18 +25,22 @@
             </div>
         </div>
         <div class="cards flex flex-wrap gap-10 mt-20 px-20">
-            <% user.posts.map(post => { %>
-                <div class="card">
-                    <div class="w-60 h-60 bg-zinc-200 rounded-md overflow-hidden">
-                        <img class="w-full h-full object-cover object-top" src="/images/uploads/<%= post.postImg %>" alt="">
+            <% if (user.posts.length> 0) { %>
+                <div class="card w-72 p-4 bg-zinc-700 rounded-lg flex flex-col justify-center mb-10">
+                    <div class="w-full h-72 bg-zinc-200 rounded-md overflow-hidden rounded-lg">
+                        <img class="w-full h-full object-cover" src="/images/uploads/<%= user.posts[0]?.postImg %>" alt="">
                     </div>
-                    <h3 class="text-xl font-semibold mt-3"><%= post.title %></h3>
-                    <h5 class="text-sm font-medium opacity-60"><%= `${post.description.slice(0, 30)}` %>...</h5>
+                    <a class="inline-block text-xl font-semibold mt-3 cursor-pointer" href="/show/posts">Your Uploaded Pins</a>
+                    <h5 class="text-sm font-medium opacity-60">
+                        <%= user.posts.length %> Pins
+                    </h5>
                 </div>
-            <% }) %>
+            <% } else { %>
+                <h3 class="text-zinc-600 tracking-tight font-semibold text-2xl">No Posts yet...</h3>
+            <% } %>
         </div>
     </div>
 
     <script src="/javascripts/script.js"></script>
 
-<% include ./partials/footer.ejs %>
+    <% include ./partials/footer.ejs %>

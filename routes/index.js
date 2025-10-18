@@ -60,6 +60,36 @@ router.get('/add', isLoggedIn, async function (req, res) {
   res.render('add', { user, nav: true });
 });
 
+router.get('/show/posts', isLoggedIn, async function (req, res) {
+  const user = await userModel.findOne({ _id: req.session.passport.user });
+
+  await user.populate('posts');
+
+  res.render('show', { user, nav: true });
+});
+
+router.get('/feed', isLoggedIn, async function (req, res) {
+  const user = await userModel.findOne({ _id: req.session.passport.user });
+
+  const posts = await postModel.find().limit(30).populate('user');
+
+  res.render('feed', { user, posts, nav: true });
+});
+
+router.get('/edit', isLoggedIn, async function (req, res) {
+  const user = await userModel.findOne({ _id: req.session.passport.user });
+
+  res.render('edit', { user, nav: true });
+});
+
+router.post('/profile/edit/:userId', isLoggedIn, async function (req, res) {
+  const { name, username } = req.body;
+
+  await userModel.findOneAndUpdate({ _id: req.params.userId }, { name, username }, { new: true });
+
+  res.redirect('/profile');
+});
+
 router.post('/post/create', isLoggedIn, upload.single('postImage'), async function (req, res) {
   const { title, description } = req.body;
 
