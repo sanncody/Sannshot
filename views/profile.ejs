@@ -1,43 +1,69 @@
 <% include ./partials/header.ejs %>
 
-    <div class="w-full min-h-screen bg-zinc-800 text-white pt-10">
+    <div class="w-full min-h-screen bg-zinc-800 text-white pt-10 px-4 sm:px-6 md:px-10">
         <form id="upload-form" hidden action="/profile/upload" method="post" enctype="multipart/form-data">
             <input type="file" name="image">
         </form>
+
         <div class="profile-details flex flex-col justify-start items-center mt-10">
             <div class="relative">
                 <span id="upload-icon"
-                    class="w-8 h-8 absolute bottom-2 right-0 bg-zinc-200 rounded-full flex items-center justify-center cursor-pointer">
+                    class="w-8 h-8 absolute bottom-2 right-0 bg-zinc-200 rounded-full flex items-center justify-center cursor-pointer hover:scale-105 transition-transform">
                     <i class="text-zinc-800 ri-pencil-fill"></i>
                 </span>
-                <div class="w-32 h-32 bg-zinc-300 mb-3 rounded-full overflow-hidden">
+
+                <div class="w-28 h-28 sm:w-32 sm:h-32 bg-zinc-300 mb-3 rounded-full overflow-hidden shadow-md">
                     <img class="w-full h-full object-cover" src="/images/uploads/<%= user.profileImage %>" alt="">
                 </div>
             </div>
-            <h1 class="text-3xl font-semibold tracking-tight">
+
+            <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-center">
                 <%= user.name %>
             </h1>
-            <h3 class="text-md">@<%= user.username %>
+            <h3 class="text-sm sm:text-md opacity-90">@<%= user.username %>
             </h3>
-            <div class="flex gap-5 items-center justify-center mt-5">
-                <a href="/edit" class="px-5 py-2 bg-zinc-700 rounded-lg text-md font-semibold">Edit</a>
-                <a class="bg-red-700 px-5 py-2 rounded-lg text-md font-semibold" href="/add">Add Post</a>
+
+            <div class="flex flex-wrap gap-4 sm:gap-5 items-center justify-center mt-5">
+                <a href="/edit"
+                    class="px-4 sm:px-5 py-2 bg-zinc-700 rounded-lg text-sm sm:text-md font-semibold hover:bg-zinc-600 transition-colors">
+                    Edit
+                </a>
+                <a href="/add"
+                    class="bg-red-700 px-4 sm:px-5 py-2 rounded-lg text-sm sm:text-md font-semibold hover:bg-red-600 transition-colors">
+                    Add Post
+                </a>
             </div>
         </div>
-        <div class="cards flex flex-wrap gap-10 mt-20 px-20">
+
+        <div
+            class="cards flex flex-wrap justify-center md:justify-start gap-6 sm:gap-8 md:gap-10 mt-16 sm:mt-20 px-2 sm:px-8 md:px-10">
             <% if (user.posts.length> 0) { %>
-                <div class="card w-72 p-4 bg-zinc-700 rounded-lg flex flex-col justify-center mb-10">
-                    <div class="w-full h-72 bg-zinc-200 rounded-md overflow-hidden rounded-lg">
-                        <img class="w-full h-full object-cover" src="/images/uploads/<%= user.posts[0]?.postImg %>" alt="">
+                <div
+                    class="card w-full sm:w-64 md:w-72 p-4 bg-zinc-700 rounded-lg flex flex-col justify-center mb-8 sm:mb-10 shadow-lg">
+                    <div class="w-full h-64 sm:h-72 bg-zinc-200 rounded-lg overflow-hidden shadow-md">
+                        <% if (user.posts && user.posts.length> 0 && user.posts[0].postImg) { %>
+                            <img class="w-full h-full object-contain sm:object-cover transition-transform duration-300 hover:scale-105"
+                                src="/images/uploads/<%= user.posts[0].postImg %>" alt="User Post Image">
+                        <% } else { %>
+                            <div
+                            class="flex justify-center items-center w-full h-full bg-zinc-300 text-zinc-700 font-semibold">
+                            No Image Uploaded
+                            </div>
+                        <% } %>
                     </div>
-                    <a class="inline-block text-xl font-semibold mt-3 cursor-pointer" href="/show/posts">Your Uploaded Pins</a>
-                    <h5 class="text-sm font-medium opacity-60">
+                    <a class="inline-block text-lg sm:text-xl font-semibold mt-3 cursor-pointer hover:text-red-400 transition-colors"
+                        href="/show/posts">
+                        Your Uploaded Pins
+                    </a>
+                    <h5 class="text-xs sm:text-sm font-medium opacity-70">
                         <%= user.posts.length %> Pins
                     </h5>
                 </div>
-            <% } else { %>
-                <h3 class="text-zinc-600 tracking-tight font-semibold text-2xl">No Posts yet...</h3>
-            <% } %>
+                <% } else { %>
+                    <h3 class="text-zinc-600 tracking-tight font-semibold text-xl sm:text-2xl text-center mt-10">
+                        No Posts yet...
+                    </h3>
+                    <% } %>
         </div>
     </div>
 
